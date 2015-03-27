@@ -1,0 +1,38 @@
+nohup: ignoring input
+
+> weather-news@0.0.0 start /var/node/Lab10/weather-news
+> node ./bin/www
+
+[33m
+##############################################################
+#
+#   !!! MONGOOSE WARNING !!!
+#
+#   This is an UNSTABLE release of Mongoose.
+#   Unstable releases are available for preview/testing only.
+#   DO NOT run this in production.
+#
+##############################################################
+[0m
+[0mGET /posts [36m304 [0m16.514 ms - -[0m
+[0mGET /posts [36m304 [0m3.258 ms - -[0m
+
+npm ERR! Linux 3.14.35-28.38.amzn1.x86_64
+npm ERR! argv "node" "/usr/local/bin/npm" "start"
+npm ERR! node v0.10.21
+npm ERR! npm  v2.6.1
+npm ERR! code ELIFECYCLE
+npm ERR! weather-news@0.0.0 start: `node ./bin/www`
+npm ERR! Exit status 143
+npm ERR! 
+npm ERR! Failed at the weather-news@0.0.0 start script 'node ./bin/www'.
+npm ERR! This is most likely a problem with the weather-news package,
+npm ERR! not with npm itself.
+npm ERR! Tell the author that this fails on your system:
+npm ERR!     node ./bin/www
+npm ERR! You can get their info via:
+npm ERR!     npm owner ls weather-news
+npm ERR! There is likely additional logging output above.
+
+npm ERR! Please include the following file with any support request:
+npm ERR!     /var/node/Lab10/weather-news/routes/npm-debug.log
