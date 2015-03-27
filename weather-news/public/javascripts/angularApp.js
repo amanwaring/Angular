@@ -1,13 +1,29 @@
 angular.module('weatherNews', ['ui.router'])
-.factory('postFactory', [function(){
+.factory('postFactory', ['$http', function($http){
   var o = {
     posts: [
-      {title:'Post 1', upvotes:5, comments:[{upvotes:0,body:'hi'},{upvotes:1,body:'hello'}]},
-      {title:'Post 2', upvotes:6, comments:[]},
-      {title:'Post 3', upvotes:1, comments:[]},
-      {title:'Post 4', upvotes:4, comments:[]},
-      {title:'Post 5', upvotes:3, comments:[]}
+     // {title:'Post 1', upvotes:5, comments:[{upvotes:0,body:'hi'},{upvotes:1,body:'hello'}]},
+     // {title:'Post 2', upvotes:6, comments:[]},
+     // {title:'Post 3', upvotes:1, comments:[]},
+     // {title:'Post 4', upvotes:4, comments:[]},
+     // {title:'Post 5', upvotes:3, comments:[]}
     ]
+  };
+  o.getAll = function() {
+    return $http.get('/posts').success(function(data) {
+      angular.copy(data, o.posts);
+    });
+  };
+  o.create = function(post) {
+    return $http.post('/posts', post).success(function(data) {
+      o.posts.push(data);
+    });
+  };
+  o.upvote = function(post) {
+    return $http.put('/posts/' + post._id + '/upvote')
+      .success(function(data) {
+	post.upvotes += 1;
+      });
   };
   return o;
 }])
@@ -32,18 +48,25 @@ angular.module('weatherNews', ['ui.router'])
   '$scope',
   'postFactory',
   function($scope, postFactory) {
+    postFactory.getAll();
     $scope.test = 'Hello world!';
     $scope.posts = postFactory.posts;
     $scope.addPost = function() {
-      $scope.posts.push({
-	title:$scope.formContent,
-	upvotes:0,
-	comments: []
+      if($scope.formContent === '') {return;}
+      //$scope.posts.push({
+	//title:$scope.formContent,
+	//upvotes:0,
+	//comments: []
+      //});
+      postFactory.create({
+        title:$scope.formContent,
+        upvotes:0,
+        comments: []
       });
       $scope.formContent='';
     };
     $scope.incrementUpvotes = function(post) {
-      post.upvotes += 1;
+      postFactory.upvote(post);
     };
   }
 ])
